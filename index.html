@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主页</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1 class="title">惠来围棋院棋友</h1>
+            <div class="button-group">
+                <button class="btn btn-primary" id="lotteryBtn">
+                    <span class="btn-text">点击抽奖</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="btn btn-secondary" id="testBtn">
+                    <span class="btn-text">点击测试</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="btn btn-tertiary" id="courseLotteryBtn">
+                    <span class="btn-text">开课抽奖</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 抽奖界面模态框 -->
+    <div id="lotteryModal" class="lottery-modal">
+        <div class="lottery-content">
+            <div class="lottery-header">
+                <h2>惠来围棋院棋友抽奖</h2>
+                <button id="closeLottery" class="close-btn">×</button>
+            </div>
+            <div class="lottery-wheel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-container">
+                        <div class="carousel-item active" data-prize="特等奖：全能学习机两个月使用权">
+                            <div class="prize-image">🌟</div>
+                            <div class="prize-text">特等奖</div>
+                        </div>
+                        <div class="carousel-item" data-prize="一等奖：labubu">
+                            <div class="prize-image">🏆</div>
+                            <div class="prize-text">一等奖</div>
+                        </div>
+                        <div class="carousel-item" data-prize="二等奖：大娃娃">
+                            <div class="prize-image">🎁</div>
+                            <div class="prize-text">二等奖</div>
+                        </div>
+                        <div class="carousel-item" data-prize="三等奖：小娃娃">
+                            <div class="prize-image">🎁</div>
+                            <div class="prize-text">三等奖</div>
+                        </div>
+                        <div class="carousel-item" data-prize="四等奖：精美手账本">
+                            <div class="prize-image">🎁</div>
+                            <div class="prize-text">四等奖</div>
+                        </div>
+                        <div class="carousel-item" data-prize="五等奖：贴纸">
+                            <div class="prize-image">🎁</div>
+                            <div class="prize-text">五等奖</div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="prize-image">🎯</div>
+                            <div class="prize-text">再来一次</div>
+                        </div>
+                    </div>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+            <button id="spinBtn" class="spin-btn">开始抽奖</button>
+            <div id="result" class="result"></div>
+            
+            <!-- 修改抽奖记录区域，删除清空记录按钮 -->
+            <div class="lottery-history">
+                <div class="history-header">
+                    <h3>抽奖记录</h3>
+                    <div class="history-stats">
+                        <span id="totalCount">总次数: 0</span>
+                    </div>
+                </div>
+                <div id="historyList" class="history-list">
+                    <div class="no-history">暂无抽奖记录</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 测试界面模态框 -->
+    <div id="testModal" class="test-modal">
+        <div class="test-content">
+            <div class="test-header">
+                <h2>趣味天赋小测试</h2>
+                <button id="closeTest" class="close-btn">×</button>
+            </div>
+            <div class="test-body">
+                <div id="questionContainer" class="question-container">
+                    <div class="question-progress">
+                        <span id="questionNumber">1</span> / <span id="totalQuestions">5</span>
+                    </div>
+                    <div id="questionText" class="question-text"></div>
+                    <div id="optionsContainer" class="options-container"></div>
+                    <button id="nextQuestion" class="next-btn" style="display: none;">下一题</button>
+                </div>
+                <div id="testResult" class="test-result" style="display: none;">
+                    <h3>测试完成！</h3>
+                    <div class="result-text">
+                        <div class="encouragement">
+                            <h4>🌟 恭喜您！你超级有适合学围棋的潜力！🌟</h4>
+                            <p id="percentageText">你超越了全国 <span id="percentageValue"></span>% 的小朋友！</p>
+                            <p>围棋是一项充满智慧和乐趣的运动，相信你一定能在围棋的世界里找到属于自己的精彩！</p>
+                            <p>让我们一起体验围棋的魅力！</p>
+                        </div>
+                    </div>
+                    <button id="restartTest" class="restart-btn">重新测试</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 在页面底部添加管理员入口 -->
+    <div class="admin-entrance">
+        <button id="adminBtn" class="admin-btn">管理员</button>
+    </div>
+    
+    <!-- 管理员登录模态框 -->
+    <div id="adminModal" class="modal admin-modal">
+        <div class="modal-content admin-content">
+            <div class="admin-header">
+                <h2>管理员登录</h2>
+                <span id="closeAdmin" class="close">&times;</span>
+            </div>
+            <div class="admin-login">
+                <input type="password" id="adminPassword" placeholder="请输入管理员密码">
+                <button id="loginBtn">登录</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 管理员面板模态框 -->
+    <div id="adminPanelModal" class="modal admin-panel-modal">
+        <div class="modal-content admin-panel-content">
+            <div class="admin-header">
+                <h2>管理员面板</h2>
+                <span id="closeAdminPanel" class="close">&times;</span>
+            </div>
+            <div class="admin-panel">
+                <div class="admin-section">
+                    <h3>库存管理</h3>
+                    <button id="resetStockBtn" class="admin-action-btn">重置所有库存</button>
+                    <button id="viewStockBtn" class="admin-action-btn">查看库存状态</button>
+                </div>
+                <div class="admin-section">
+                    <h3>记录管理</h3>
+                    <button id="clearAllRecordsBtn" class="admin-action-btn">清空所有抽奖记录</button>
+                    <button id="exportRecordsBtn" class="admin-action-btn">导出抽奖记录</button>
+                </div>
+                <div class="admin-section">
+                    <h3>系统设置</h3>
+                    <button id="changePasswordBtn" class="admin-action-btn">修改管理员密码</button>
+                    <button id="resetSystemBtn" class="admin-action-btn">重置系统</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 库存管理模态框 -->
+    <div id="stockModal" class="stock-modal">
+        <div class="stock-content">
+            <div class="stock-header">
+                <h3>库存管理</h3>
+                <div class="stock-header-actions">
+                    <button id="saveStockBtn" class="save-stock-btn">保存修改</button>
+                    <button id="closeStock" class="close-btn">×</button>
+                </div>
+            </div>
+            <div class="stock-body">
+                <div class="stock-section">
+                    <h4>普通抽奖库存</h4>
+                    <div id="normalStockList" class="stock-list"></div>
+                </div>
+                <div class="stock-section">
+                    <h4>开课抽奖库存</h4>
+                    <div id="courseStockList" class="stock-list"></div>
+                </div>
+                <div class="stock-summary">
+                    <div class="summary-item">
+                        <span>普通抽奖总次数:</span>
+                        <span id="normalTotal">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>开课抽奖总次数:</span>
+                        <span id="courseTotal">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+    <!-- 年龄段选择模态框 -->
+    <div id="ageSelectionModal" class="age-selection-modal">
+        <div class="age-selection-content">
+            <div class="age-selection-header">
+                <h2>选择年龄段</h2>
+                <button id="closeAgeSelection" class="close-btn">×</button>
+            </div>
+            <div class="age-selection-body">
+                <p class="selection-subtitle">请选择适合的年龄段开始测试</p>
+                <div class="age-buttons">
+                    <button id="age4to6Btn" class="age-btn age-btn-primary">
+                        <div class="age-btn-icon">🧸</div>
+                        <div class="age-btn-text">
+                            <span class="age-range">4-6岁</span>
+                            <span class="age-desc">启蒙阶段</span>
+                        </div>
+                    </button>
+                    <button id="age7to9Btn" class="age-btn age-btn-secondary">
+                        <div class="age-btn-icon">🎮</div>
+                        <div class="age-btn-text">
+                            <span class="age-range">7-9岁</span>
+                            <span class="age-desc">探索阶段</span>
+                        </div>
+                    </button>
+                    <button id="age10to12Btn" class="age-btn age-btn-tertiary">
+                        <div class="age-btn-icon">🚀</div>
+                        <div class="age-btn-text">
+                            <span class="age-range">10-12岁</span>
+                            <span class="age-desc">进阶阶段</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
