@@ -1,11 +1,11 @@
 // 默认库存配置
 const defaultPrizesStock = [
     { name: 'LABUBU', stock: 1 },
-    { name: '小盲袋', stock: 240 },
-    { name: '扇子', stock: 500 },
+    { name: '围棋套装', stock: 240 },
+    { name: '杯子', stock: 500 },
     { name: '学习袋', stock: 180 },
-    { name: '贴纸', stock: 300 },
-    { name: '奥特曼玩偶', stock: 2 },
+    { name: '100元优惠券', stock: 300 },
+    { name: '再来一次', stock: -1 },
     { name: '再来一次', stock: -1 }
 ];
 
